@@ -1,0 +1,46 @@
+[
+  {
+    "origin": 11,
+    "destinys": [
+      {
+        "destiny": 16,
+        "price": 1.90
+      },
+      {
+        "destiny": 17,
+        "price": 1.70
+      },
+      {
+        "destiny": 18,
+        "price": 0.90
+      }
+    ]
+  },
+  {
+    "origin": 16,
+    "destinys": [
+      {
+        "destiny": 11,
+        "price": 2.90
+      }
+    ]
+  },
+  {
+    "origin": 17,
+    "destinys": [
+      {
+        "destiny": 11,
+        "price": 2.90
+      }
+    ]
+  },
+  {
+    "origin": 18,
+    "destinys": [
+      {
+        "destiny": 11,
+        "price": 1.90
+      }
+    ]
+  }
+]
