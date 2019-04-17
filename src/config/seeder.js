@@ -6,40 +6,46 @@ import PlanModel from '../modules/plans/models/plans';
 import callsArray from '../lib/calls';
 import plansArray from '../lib/plans';
 
-const seedCalls = async () => {
+const seedCalls = () => new Promise(async (resolve, reject) => {
   const callsDb = await CallModel.find();
   if (callsDb.length) {
-    return process.stdout.write('O banco já tem as ligações!');
+    resolve(false);
   }
-  return callsArray.forEach(async (call) => {
+  callsArray.forEach(async (call, index) => {
     const newCall = new CallModel(call);
     try {
       await newCall.save();
+      if (index === (callsArray.length - 1)) resolve(true);
     } catch (err) {
-      throw new Error(err);
+      reject(err);
     }
   });
-};
+  return null;
+});
 
-const seedPlans = async () => {
+const seedPlans = () => new Promise(async (resolve, reject) => {
   const plansDb = await PlanModel.find();
   if (plansDb.length) {
-    return process.stdout.write('O banco já tem os planos!');
+    resolve(false);
   }
-  return plansArray.forEach(async (plan) => {
+  plansArray.forEach(async (plan, index) => {
     const newPlan = new PlanModel(plan);
     try {
       await newPlan.save();
+      if (index === (plansArray.length - 1)) resolve(true);
     } catch (err) {
-      throw new Error(err);
+      reject(err);
     }
   });
-};
+  return null;
+});
 
-const seed = async () => {
-  await seedCalls();
-  await seedPlans();
-  console.log('Dados salvos e banco conectado :D');
+const seed = async (db) => {
+  const seederCalls = await seedCalls();
+  const seederPlans = await seedPlans();
+  if (seederCalls && seederPlans) process.stdout.write('Dados iniciais salvos no banco :D');
+  else process.stdout.write('Valeu por me executar... Mas seu banco já tá preenchido! ;)');
+  db.close();
 };
 
 mongoose.connect('mongodb://localhost:27017/vizir', { useCreateIndex: true, useNewUrlParser: true }, (err, db) => {
