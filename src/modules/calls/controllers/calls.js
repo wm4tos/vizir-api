@@ -1,7 +1,7 @@
 import Calls from '../models/calls';
 
 class CallsController {
-  static All(filter = {}) {
+  static Get(filter = {}) {
     try {
       return Calls.find(filter);
     } catch (err) {

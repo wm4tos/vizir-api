@@ -16,7 +16,7 @@ router.route('/calls')
   .get(async (req, res) => {
     let response;
     try {
-      const calls = await CallsController.All(req.query);
+      const calls = await CallsController.Get(req.query);
       if (calls.length) {
         response = {
           status: 200,
