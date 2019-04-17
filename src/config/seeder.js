@@ -42,7 +42,7 @@ const seed = async () => {
   console.log('Dados salvos e banco conectado :D');
 };
 
-mongoose.connect('mongodb://127.0.0.1:27017/vizir', { useCreateIndex: true, useNewUrlParser: true }, (err, db) => {
+mongoose.connect('mongodb://localhost:27017/vizir', { useCreateIndex: true, useNewUrlParser: true }, (err, db) => {
   if (err) throw new Error(err);
   seed(db);
 });

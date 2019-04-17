@@ -5,7 +5,7 @@ const app = express();
 
 const port = '8080';
 
-mongoose.connect(db, { useCreateIndex: true, useNewUrlParser: true })
+mongoose.connect('mongodb://localhost:27017/vizir', { useCreateIndex: true, useNewUrlParser: true })
   .then(() => process.stdout.write('MongoDB connected!\n'))
   .catch(err => process.stdout.write(err));
 
