@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-import CallModel from '../db/models/calls';
-import PlanModel from '../db/models/plans';
+import CallModel from '../modules/calls/models/calls';
+import PlanModel from '../modules/plans/models/plans';
 
 import callsArray from '../lib/calls';
 import plansArray from '../lib/plans';
