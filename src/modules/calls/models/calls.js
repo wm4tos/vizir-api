@@ -9,7 +9,6 @@ export const callSchema = mongoose.Schema({
   destinys: {
     type: Array,
     required: true,
-    unique: true,
     destiny: {
       type: Number,
       required: true,
