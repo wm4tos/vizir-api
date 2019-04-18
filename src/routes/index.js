@@ -13,7 +13,8 @@ router.get('/', (req, res) => {
 });
 
 router.route('/calls')
-  .get(CallsController.Get);
+  .get(CallsController.Get)
+  .post(CallsController.ValidateQuery, CallsController.Create);
 
 router.route('/plans')
   .get(PlansController.Get);
