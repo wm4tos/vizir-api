@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import express from 'express';
+import bodyParser from 'body-parser';
 
 import routes from './routes/index';
 
@@ -11,6 +12,7 @@ mongoose.connect('mongodb://localhost:27017/vizir', { useCreateIndex: true, useN
   .then(() => process.stdout.write('MongoDB connected!\n'))
   .catch(err => process.stdout.write(err));
 
+app.use(bodyParser.json());
 app.use('/api', routes);
 
 app.listen(port, () => process.stdout.write(`Listening on port ${port}\n`));
