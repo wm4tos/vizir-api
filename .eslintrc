@@ -12,6 +12,7 @@
     "max-len": ["error", 120],
     "no-underscore-dangle": ["off"],
     "no-param-reassign": 0,
-    "linebreak-style": 0
+    "linebreak-style": 0,
+    "consistent-return": 0
   }
 }
