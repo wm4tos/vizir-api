@@ -19,6 +19,7 @@ class PlansController {
         };
       }
     } catch (err) {
+      res.status(500);
       response = {
         status: 500,
         message: err,

@@ -13,13 +13,14 @@ class CallsController {
           data: calls,
         };
       } else {
+        res.status(404);
         response = {
           status: 404,
-          data: calls,
           message: 'Nenhum registro encontrado :/',
         };
       }
     } catch (err) {
+      res.status(500);
       response = {
         status: 500,
         message: err,
