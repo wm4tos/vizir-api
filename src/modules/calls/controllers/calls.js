@@ -3,7 +3,7 @@ import { Emitter, ErrorEmitter } from '../../../helpers/emitter';
 
 class CallsController {
   /**
-   * @description Valida se a requisição enviada pelo usuário é válida.
+   * @description Pega todos as ligações do banco.
    * @param {Object} req
    * @param {Object} res
    */
@@ -52,7 +52,7 @@ class CallsController {
   }
 
   /**
-   * @description Valida se a requisição enviada pelo usuário é válida.
+   * @description Cria novas ligações.
    * @param {Object} req
    * @param {Object} res
    */
@@ -65,6 +65,8 @@ class CallsController {
       return ErrorEmitter(res, 500, err);
     }
   }
+
+
 }
 
 export default CallsController;
