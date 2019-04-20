@@ -16,7 +16,6 @@ router.route('/calls')
   .get(CallsController.Get)
   .post(CallsController.ValidateQuery, CallsController.Create);
 
-router.route('/plans')
-  .get(PlansController.Get);
+router.get('/plans', PlansController.Get);
 
 export default router;
