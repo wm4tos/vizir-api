@@ -14,3 +14,5 @@ export const NewCall = (call) => new Promise(async (resolve, reject) => {
     reject(err);
   }
 });
+
+export const GetCall = async (filter = {}) => await Calls.findOne(filter);
