@@ -1,5 +1,5 @@
 import Plans from '../models/plans';
-import { Emitter } from '../../../services/emitter';
+import { Emitter } from '../../../helpers/emitter';
 
 class PlansController {
   static async Get(req, res) {

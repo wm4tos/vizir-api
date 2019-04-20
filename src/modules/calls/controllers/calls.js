@@ -1,5 +1,5 @@
 import Calls from '../models/calls';
-import { Emitter, ErrorEmitter } from '../../../services/emitter';
+import { Emitter, ErrorEmitter } from '../../../helpers/emitter';
 
 class CallsController {
   /**
