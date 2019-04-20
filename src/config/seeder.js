@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Random from 'meteor-random';
 
 import CallModel from '../modules/calls/models/calls';
 import PlanModel from '../modules/plans/models/plans';
@@ -12,6 +13,7 @@ const seedCalls = () => new Promise(async (resolve, reject) => {
     resolve(false);
   }
   callsArray.forEach(async (call, index) => {
+    call.destinys.forEach(x => x.id = Random.id(24))
     const newCall = new CallModel(call);
     try {
       await newCall.save();
