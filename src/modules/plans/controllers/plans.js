@@ -1,11 +1,11 @@
-import Plans from '../models/plans';
+import { GetPlans } from '../services/plans';
 import { Emitter } from '../../../helpers/emitter';
 
 class PlansController {
   static async Get(req, res) {
     let response;
     try {
-      const plans = await Plans.find(req.query);
+      const plans = await GetPlans(req.query);
       if (plans.length) {
         response = {
           status: 200,
