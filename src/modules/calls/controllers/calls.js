@@ -1,4 +1,4 @@
-import Calls from '../models/calls';
+import { GetCalls, NewCall } from '../services/calls';
 import { Emitter, ErrorEmitter } from '../../../helpers/emitter';
 
 class CallsController {
@@ -11,7 +11,7 @@ class CallsController {
     Object.keys(req.query).forEach(x => (req.query[x] ? null : delete req.query[x]));
     let response;
     try {
-      const calls = await Calls.find(req.query);
+      const calls = await GetCalls(req.query);
       if (calls.length) {
         response = {
           status: 200,
@@ -44,7 +44,7 @@ class CallsController {
       }
     });
     const { origin } = req.body;
-    const call = await Calls.find({ origin });
+    const call = await GetCalls({ origin });
     if (call.length) {
       return ErrorEmitter(res, 409, 'Essa origem já tá cadastrada no banco. Pode tentar outra?');
     }
@@ -59,8 +59,7 @@ class CallsController {
   static async Create(req, res) {
     const { origin, destinys } = req.body;
     try {
-      const newCall = new Calls({ origin, destinys });
-      await newCall.save();
+      const newCall = await NewCall({ origin, destinys });
       return Emitter(res, { status: 200, data: newCall, message: 'Usuário cadastrado com sucesso!' });
     } catch (err) {
       return ErrorEmitter(res, 500, err);
