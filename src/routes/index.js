@@ -19,7 +19,9 @@ router.route('/calls')
 
 router.get('/calls/:origin', CallsController.AutoComplete);
 
-router.route('/call/:_id', CallsController.GetOne);
+router.route('/call/:_id')
+  .get(CallsController.GetOne)
+  .put(CallsController.Update);
 
 router.get('/value/:_idCall/:_idPlan', ValueController.GetValues);
 

@@ -1,4 +1,6 @@
-import { GetCalls, NewCall, GetCall } from '../services/calls';
+import {
+  GetCalls, NewCall, GetCall, UpdateCall,
+} from '../services/calls';
 import { Emitter, ErrorEmitter } from '../../../helpers/emitter';
 
 class CallsController {
@@ -94,6 +96,27 @@ class CallsController {
       return Emitter(res, { status: 200, data: calls });
     } catch (err) {
       return Emitter(res, { status: 200, err });
+    }
+  }
+
+  /**
+   * @description Atualiza ligação existente.
+   * @param {Object} req
+   * @param {Object} res
+   */
+
+  static async Update(req, res) {
+    const { _id } = req.params;
+    const { body } = req;
+    try {
+      if ('_id' in body && 'origin' in body && 'destinys' in body) {
+        const callUpdated = await UpdateCall({ _id }, body);
+
+        return Emitter(res, { status: 200, data: callUpdated, message: 'Ligação salva com sucesso!' });
+      }
+      return ErrorEmitter(res, 400);
+    } catch (err) {
+      return ErrorEmitter(res, 500, 'Não deu pra salvar sua ligação agora :(\nPode tentar de novo depois?');
     }
   }
 
