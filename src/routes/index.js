@@ -17,7 +17,9 @@ router.route('/calls')
   .get(CallsController.Get)
   .post(CallsController.ValidateQuery, CallsController.Create);
 
-router.get('/call/:_id', CallsController.GetOne);
+router.get('/calls/:origin', CallsController.AutoComplete);
+
+router.route('/call/:_id', CallsController.GetOne);
 
 router.get('/value/:_idCall/:_idPlan', ValueController.GetValues);
 

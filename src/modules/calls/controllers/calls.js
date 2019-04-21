@@ -70,6 +70,34 @@ class CallsController {
   }
 
   /**
+   * @description Busca valores para um autocomplete.
+   * @param {Object} req
+   * @param {Object} res
+   */
+  static async AutoComplete(req, res) {
+    const { origin } = req.params;
+
+    try {
+      const calls = await GetCalls({ origin: { $regex: origin } });
+
+      calls.splice(
+        0,
+        calls.length,
+        ...calls.map(x => ({
+          value: x.origin,
+          label: `DDD: ${x.origin}`,
+          _id: x._id,
+          destinys: x.destinys,
+        })),
+      );
+
+      return Emitter(res, { status: 200, data: calls });
+    } catch (err) {
+      return Emitter(res, { status: 200, err });
+    }
+  }
+
+  /**
    * @description Cria novas ligações.
    * @param {Object} req
    * @param {Object} res
@@ -78,7 +106,7 @@ class CallsController {
     const { origin, destinys } = req.body;
     try {
       const newCall = await NewCall({ origin, destinys });
-      return Emitter(res, { status: 200, data: newCall, message: 'Usuário cadastrado com sucesso!' });
+      return Emitter(res, { status: 200, data: newCall, message: 'Ligação cadastrada com sucesso!' });
     } catch (err) {
       return ErrorEmitter(res, 500, err);
     }
