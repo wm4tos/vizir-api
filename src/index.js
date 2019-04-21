@@ -15,6 +15,11 @@ mongoose.connect(process.env.MONGO_URL, { useCreateIndex: true, useNewUrlParser:
   .then(() => process.stdout.write('MongoDB connected!\n'))
   .catch(err => process.stdout.write(err));
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 app.use(bodyParser.json());
 app.use(routes);
 
