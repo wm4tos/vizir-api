@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 
 import Calls from '../models/calls';
 
+mongoose.set('useFindAndModify', false);
 mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/vizir',
   { useCreateIndex: true, useNewUrlParser: true });
 
