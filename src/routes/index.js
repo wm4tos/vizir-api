@@ -19,7 +19,7 @@ router.route('/calls')
 
 router.get('/call/:_id', CallsController.GetOne);
 
-router.get('/value/:_idCall', ValueController.GetValues);
+router.get('/value/:_idCall/:_idPlan', ValueController.GetValues);
 
 router.get('/plans', PlansController.Get);
 
