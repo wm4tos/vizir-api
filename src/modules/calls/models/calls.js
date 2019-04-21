@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 export const callSchema = mongoose.Schema({
   origin: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
   },
