@@ -35,3 +35,12 @@ export const GetCall = async (filter = {}) => new Promise(async (resolve, reject
     reject(err);
   }
 });
+
+export const UpdateCall = async (filter = {}, callToUpdate) => new Promise(async (resolve, reject) => {
+  try {
+    await Calls.findOneAndUpdate(filter, callToUpdate);
+    resolve(callToUpdate);
+  } catch (err) {
+    reject(err);
+  }
+});
