@@ -37,6 +37,7 @@ export const GetCall = async (filter = {}) => new Promise(async (resolve, reject
 });
 
 export const UpdateCall = async (filter = {}, callToUpdate) => new Promise(async (resolve, reject) => {
+  callToUpdate.destinys.forEach(x => (x.id ? null : x.id = Random.id(24)));
   try {
     await Calls.findOneAndUpdate(filter, callToUpdate);
     resolve(callToUpdate);
