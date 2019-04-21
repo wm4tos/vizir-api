@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import mongoUnit from 'mongo-unit';
 import dotenv from 'dotenv';
 
-import { GetCall, GetCalls, NewCall } from '../src/modules/calls/services/calls';
+import { GetCall, GetCalls, NewCall, UpdateCall } from '../src/modules/calls/services/calls';
 import callsData from '../src/lib/calls.json';
 import plansData from '../src/lib/plans.json';
 
@@ -23,6 +23,20 @@ describe('Testando service de ligações', () => {
       expect(call).to.have.property('destinys').to.be.an('array').to.have.length(2);
     }));
   it('Deve receber a mensagem "Parâmetros inválidos."', () => NewCall({ origin: 23 })
+    .catch((call) => {
+      expect(call).to.be.equal('Parâmetros inválidos.');
+    }));
+  it('Deve receber a ligação modificada', () => {
+    GetCall({ origin: 11 })
+      .then((call) => {
+        call.destinys.forEach(x => (x.price *= 1.5));
+        UpdateCall(call)
+          .then((updatedCall) => {
+            expect(updatedCall).to.be.equal(call);
+          });
+      })
+  })
+  it('Deve receber a mensagem "Parâmetros inválidos."', () => UpdateCall({ origin: 23 })
     .catch((call) => {
       expect(call).to.be.equal('Parâmetros inválidos.');
     }));
