@@ -101,11 +101,10 @@ class CallsController {
    */
 
   static async Update(req, res) {
-    const { _id } = req.params;
     const { body } = req;
     try {
       if ('_id' in body && 'origin' in body && 'destinys' in body) {
-        const callUpdated = await UpdateCall({ _id }, body);
+        const callUpdated = await UpdateCall(body);
 
         return Emitter(res, { status: 200, data: callUpdated, message: 'Ligação salva com sucesso!' });
       }

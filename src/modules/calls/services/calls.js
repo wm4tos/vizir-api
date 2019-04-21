@@ -36,11 +36,14 @@ export const GetCall = async (filter = {}) => new Promise(async (resolve, reject
   }
 });
 
-export const UpdateCall = async (filter = {}, callToUpdate) => new Promise(async (resolve, reject) => {
-  if (!('origin' in callToUpdate) || !('destinys' in callToUpdate)) return reject('Parâmetros inválidos.');
+export const UpdateCall = async callToUpdate => new Promise(async (resolve, reject) => {
+  if (!('origin' in callToUpdate)
+  || !('destinys' in callToUpdate)
+  || !('_id' in callToUpdate)) return reject('Parâmetros inválidos.');
+  const { _id } = callToUpdate;
   callToUpdate.destinys.forEach(x => (x.id ? null : x.id = Random.id(24)));
   try {
-    await Calls.findOneAndUpdate(filter, callToUpdate);
+    await Calls.findOneAndUpdate({ _id }, callToUpdate);
     resolve(callToUpdate);
   } catch (err) {
     reject(err);
