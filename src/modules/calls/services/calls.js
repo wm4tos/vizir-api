@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 
 import Calls from '../models/calls';
 
-mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/vizir', { useCreateIndex: true, useNewUrlParser: true });
+mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/vizir',
+  { useCreateIndex: true, useNewUrlParser: true });
 
 export const GetCalls = async (filter = {}) => new Promise(async (resolve, reject) => {
   try {
@@ -14,8 +15,8 @@ export const GetCalls = async (filter = {}) => new Promise(async (resolve, rejec
   }
 });
 
-export const NewCall = (call) => new Promise(async (resolve, reject) => {
-  if (!('origin' in call) || !('destinys' in call)) return reject('Parâmetros inválidos.')
+export const NewCall = call => new Promise(async (resolve, reject) => {
+  if (!('origin' in call) || !('destinys' in call)) return reject('Parâmetros inválidos.');
   call.destinys.forEach(x => x.id = Random.id(24));
   try {
     const newCall = new Calls(call);
