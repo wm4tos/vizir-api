@@ -13,15 +13,15 @@ router.get('/', (req, res) => {
   });
 });
 
-router.route('/calls')
-  .get(CallsController.Get)
-  .post(CallsController.ValidateQuery, CallsController.Create);
+router.get('/calls', CallsController.Get);
+
+router.post('/call', CallsController.ValidateQuery, CallsController.Create);
 
 router.get('/calls/:origin', CallsController.AutoComplete);
 
 router.route('/call/:_id')
   .get(CallsController.GetOne)
-  .put(CallsController.Update);
+  .put(CallsController.ValidateQuery, CallsController.Update);
 
 router.get('/value/:_idCall/:_idPlan', ValueController.GetValues);
 
