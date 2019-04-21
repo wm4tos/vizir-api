@@ -1,6 +1,5 @@
-import { GetCall } from '../../calls/services/calls';
-import { GetPlan } from '../../plans/services/plans';
 import { Emitter, ErrorEmitter } from '../../../helpers/emitter';
+import { GetValues } from '../service/values';
 
 class ValueController {
   /**
@@ -18,29 +17,7 @@ class ValueController {
     }
 
     try {
-      const call = await GetCall({ _id: _idCall });
-
-      if (!Object.keys(call).length) {
-        return ErrorEmitter(res, 404);
-      }
-      const { name, time } = await GetPlan({ _id: _idPlan });
-
-      const data = [];
-
-      const destinys = call.destinys.map((y) => {
-        const priceWith = Number((y.price * (query.time - time) * 1.1).toFixed(2));
-        return {
-          destiny: y.destiny,
-          priceWith: (priceWith < 0 ? 0 : priceWith),
-          priceWithout: Number((y.price * query.time).toFixed(2)),
-        };
-      });
-
-      for (const destiny of destinys) {
-        data.push({
-          name, time: Number(query.time), origin: call.origin, ...destiny,
-        });
-      }
+      const data = await GetValues({ _idCall, _idPlan }, query);
 
       return Emitter(res, { status: 200, data });
     } catch (err) {
