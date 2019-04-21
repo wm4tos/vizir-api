@@ -30,7 +30,7 @@ class ValueController {
           return {
             destiny: y.destiny,
             priceWith: (priceWith < 0 ? 0 : priceWith),
-            priceWithout: y.price * query.time,
+            priceWithout: Number((y.price * query.time).toFixed(2)),
           };
         });
         return {
