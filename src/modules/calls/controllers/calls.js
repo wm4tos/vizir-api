@@ -53,19 +53,14 @@ class CallsController {
    * @param {Function} next
    */
   static async ValidateQuery(req, res, next) {
-    if (Object.keys(req.body).length !== 2) {
-      return ErrorEmitter(res, 400);
-    }
-    Object.keys(req.body).forEach((x) => {
-      if (!req.body[x]
-        && !((x === 'origin' && typeof x === 'object')
-        || !(x === 'destinys' && !x.length && typeof x === 'object'))) {
-        return ErrorEmitter(res, 400);
-      }
-    });
+    const { body } = req;
+    if (!('origin' in body)
+    || !('destinys' in body)
+    || !(typeof body.destinys === 'object')
+    || !body.destinys.length) return ErrorEmitter(res, 400);
     const { origin } = req.body;
     const call = await GetCalls({ origin });
-    if (call.length) {
+    if (call.length && req.url === '/call' && req.method === 'POST') {
       return ErrorEmitter(res, 409, 'Essa origem já tá cadastrada no banco. Pode tentar outra?');
     }
     return next();
