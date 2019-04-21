@@ -16,7 +16,7 @@ router.route('/calls')
   .get(CallsController.Get)
   .post(CallsController.ValidateQuery, CallsController.Create);
 
-// router.get('/call/:_id', CallsController.GetOne);
+router.get('/call/:_id', CallsController.GetOne);
 
 router.get('/plans', PlansController.Get);
 

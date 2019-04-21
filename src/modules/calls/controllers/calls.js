@@ -1,4 +1,4 @@
-import { GetCalls, NewCall } from '../services/calls';
+import { GetCalls, NewCall, GetCall } from '../services/calls';
 import { Emitter, ErrorEmitter } from '../../../helpers/emitter';
 
 class CallsController {
@@ -24,6 +24,24 @@ class CallsController {
       return ErrorEmitter(res, 500, err);
     }
     return Emitter(res, response);
+  }
+
+  /**
+   * @description Pega uma ligação do banco.
+   * @param {Object} req
+   * @param {Object} res
+   */
+  static async GetOne(req, res) {
+    const { _id } = req.params;
+    try {
+      const call = await GetCall({ _id });
+      if ('origin' in call && 'destinys' in call && '_id' in call) {
+        return Emitter(res, { status: 200, data: call });
+      }
+      return ErrorEmitter(res, 404);
+    } catch (err) {
+      return ErrorEmitter(res, 500, err);
+    }
   }
 
   /**
@@ -65,8 +83,6 @@ class CallsController {
       return ErrorEmitter(res, 500, err);
     }
   }
-
-
 }
 
 export default CallsController;
