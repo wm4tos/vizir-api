@@ -26,6 +26,10 @@ describe('Testando service de ligações', () => {
     .catch((call) => {
       expect(call).to.be.equal('Parâmetros inválidos.');
     }));
+  it('Deve receber a mensagem "Ei... Falta alguma coisa, né?"', () => NewCall({ origin: 23, destinys: []})
+    .catch((err) => {
+      expect(err).to.be.equal('Ei... Falta alguma coisa, né?');
+    }));
   it('Deve receber a ligação modificada', () => {
     GetCall({ origin: 11 })
       .then((call) => {
