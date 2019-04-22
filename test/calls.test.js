@@ -14,25 +14,25 @@ const mongoURL = process.env.MONGO_URL;
 describe('Testando service de ligações', () => {
   beforeEach(() => mongoUnit.initDb(mongoURL, { calls: callsData, plans: plansData }));
   afterEach(() => mongoUnit.drop());
-  it('Deve receber um objeto com a ligação cadastrada', () => NewCall({
-    origin: 20,
-    destinys: [{ price: 0.80, destiny: 11 }, { price: 1.80, destiny: 18 }],
-  })
-    .then((call) => {
-      expect(call).to.have.property('origin');
-      expect(call).to.have.property('destinys').to.be.an('array').to.have.length(2);
-    }));
-  it('Deve receber a mensagem "Parâmetros inválidos."', () => NewCall({ origin: 23 })
-    .catch((call) => {
-      expect(call).to.be.equal('Parâmetros inválidos.');
-    }));
   it('Deve receber a mensagem "Ei... Falta alguma coisa, né?"', () => NewCall({ origin: 23, destinys: []})
     .catch((err) => {
       expect(err).to.be.equal('Ei... Falta alguma coisa, né?');
     }));
+  it('Deve receber um objeto com a ligação cadastrada', () => NewCall({
+    origin: 20,
+    destinys: [{ price: 0.80, destiny: 11 }, { price: 1.80, destiny: 18 }],
+  })
+  .then((call) => {
+    expect(call).to.have.property('origin');
+    expect(call).to.have.property('destinys').to.be.an('array').to.have.length(2);
+  }));
   it('Deve receber a mensagem "Ei... Falta alguma coisa, né?"', () => NewCall({ origin: 23, destinys: [{ destiny: 11, price: 0 }]})
     .catch((err) => {
       expect(err).to.be.equal('Ei... Falta alguma coisa, né?');
+    }));
+  it('Deve receber a mensagem "Parâmetros inválidos."', () => NewCall({ origin: 23 })
+    .catch((call) => {
+      expect(call).to.be.equal('Parâmetros inválidos.');
     }));
   it('Deve receber a mensagem "Ei... Falta alguma coisa, né?"', () => NewCall({ origin: 23, destinys: [{ destiny: 0, price: 1.9 }]})
     .catch((err) => {
