@@ -30,6 +30,14 @@ describe('Testando service de ligações', () => {
     .catch((err) => {
       expect(err).to.be.equal('Ei... Falta alguma coisa, né?');
     }));
+  it('Deve receber a mensagem "Ei... Falta alguma coisa, né?"', () => NewCall({ origin: 23, destinys: [{ destiny: 11, price: 0 }]})
+    .catch((err) => {
+      expect(err).to.be.equal('Ei... Falta alguma coisa, né?');
+    }));
+  it('Deve receber a mensagem "Ei... Falta alguma coisa, né?"', () => NewCall({ origin: 23, destinys: [{ destiny: 0, price: 1.9 }]})
+    .catch((err) => {
+      expect(err).to.be.equal('Ei... Falta alguma coisa, né?');
+    }));
   it('Deve receber a ligação modificada', () => {
     GetCall({ origin: 11 })
       .then((call) => {
