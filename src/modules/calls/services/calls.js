@@ -18,7 +18,8 @@ export const GetCalls = async (filter = {}) => new Promise(async (resolve, rejec
 
 export const NewCall = call => new Promise(async (resolve, reject) => {
   if (!('origin' in call) || !('destinys' in call)) return reject('Parâmetros inválidos.');
-  if (call.destinys.find(x => !x.destiny) || !call.destinys.length) return reject('Ei... Falta alguma coisa, né?');
+  if (call.destinys.find(x => !x.destiny || !x.price)
+    || !call.destinys.length) return reject('Ei... Falta alguma coisa, né?');
   call.destinys.forEach(x => x.id = Random.id(24));
   try {
     const newCall = new Calls(call);
