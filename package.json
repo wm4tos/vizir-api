@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --require babel-core/register --require ./test/it-helper",
+    "test": "./node_modules/.bin/mocha --timeout 3000 --require babel-core/register --require ./test/it-helper",
     "start": "nodemon --exec babel-node src/index.js",
     "build": "babel src --out-dir dist",
     "db:seed": "babel-node ./src/config/seeder.js"
