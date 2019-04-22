@@ -2,7 +2,8 @@ import mongoose from 'mongoose';
 
 import Plans from '../models/plans';
 
-mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/vizir', { useCreateIndex: true, useNewUrlParser: true });
+mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/vizir',
+  { useCreateIndex: true, useNewUrlParser: true });
 
 export const GetPlans = async (filter = {}) => new Promise(async (resolve, reject) => {
   try {
