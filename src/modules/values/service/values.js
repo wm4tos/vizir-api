@@ -3,6 +3,7 @@ import { GetPlan } from '../../plans/services/plans';
 
 // eslint-disable-next-line import/prefer-default-export
 export const GetValues = ({ _idCall, _idPlan }, query) => new Promise(async (resolve, reject) => {
+  if (!_idCall || !_idPlan || !query) return reject('Parâmetros inválidos.');
   try {
     const call = await GetCall({ _id: _idCall });
 
