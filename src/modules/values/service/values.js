@@ -1,5 +1,10 @@
+import mongoose from 'mongoose';
+
 import { GetCall } from '../../calls/services/calls';
 import { GetPlan } from '../../plans/services/plans';
+
+mongoose.connect(process.env.MONGO_URL || 'mongodb://localhost:27017/vizir',
+  { useCreateIndex: true, useNewUrlParser: true });
 
 // eslint-disable-next-line import/prefer-default-export
 export const GetValues = ({ _idCall, _idPlan }, query) => new Promise(async (resolve, reject) => {
