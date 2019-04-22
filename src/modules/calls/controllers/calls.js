@@ -110,7 +110,7 @@ class CallsController {
       }
       return ErrorEmitter(res, 400);
     } catch (err) {
-      return ErrorEmitter(res, 500, 'Não deu pra salvar sua ligação agora :(\nPode tentar de novo depois?');
+      return ErrorEmitter(res, 500, err);
     }
   }
 
