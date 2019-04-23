@@ -8,6 +8,7 @@ import callsArray from '../lib/calls';
 import plansArray from '../lib/plans';
 
 const seedCalls = () => new Promise(async (resolve, reject) => {
+  if (process.argv[2] === 'force') await CallModel.deleteMany();
   const callsDb = await CallModel.find();
   if (callsDb.length) {
     resolve(false);
@@ -26,6 +27,7 @@ const seedCalls = () => new Promise(async (resolve, reject) => {
 });
 
 const seedPlans = () => new Promise(async (resolve, reject) => {
+  if (process.argv[2] === 'force') await PlanModel.deleteMany();
   const plansDb = await PlanModel.find();
   if (plansDb.length) {
     resolve(false);
@@ -45,7 +47,7 @@ const seedPlans = () => new Promise(async (resolve, reject) => {
 const seed = async (db) => {
   const seederCalls = await seedCalls();
   const seederPlans = await seedPlans();
-  if (seederCalls && seederPlans) process.stdout.write('Dados iniciais salvos no banco :D');
+  if (seederCalls && seederPlans) process.stdout.write('Dados salvos no banco :D');
   else process.stdout.write('Valeu por me executar... Mas seu banco já tá preenchido! ;)');
   db.close();
 };
